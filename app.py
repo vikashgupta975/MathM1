@@ -22,31 +22,62 @@ st.markdown("""
     .math-problem {
         background-color: #f8f9fa;
         border-left: 5px solid #1E88E5;
-        padding: 15px;
+        padding: 18px;
         border-radius: 12px;
         margin: 18px 0;
         box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
+    }
+    
+    .math-problem h4 {
+        color: #1E88E5;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: 600;
     }
     
     .solution-step {
         margin: 18px 0;
-        padding: 15px;
+        padding: 18px;
         border-radius: 12px;
         background-color: #f0f2f6;
+        border-left: 4px solid #7986CB;
         box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
     }
     
+    .solution-step h4 {
+        color: #3F51B5;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+    
+    .solution-step:hover {
+        transform: translateX(5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
+    
     .final-answer {
         background-color: #e8f4f8;
+        background: linear-gradient(135deg, #e8f4f8, #e8f5e9);
         border-radius: 12px;
-        padding: 18px;
+        padding: 20px;
         margin: 24px 0;
         border-left: 5px solid #4CAF50;
-        font-weight: bold;
+        font-weight: 500;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
+    }
+    
+    .final-answer h4 {
+        color: #2E7D32;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        font-weight: 600;
     }
     
     /* Chat message styling */
@@ -161,17 +192,32 @@ st.markdown("""
     
     body.dark .solution-step {
         background-color: #333;
+        border-left: 4px solid #5c6bc0;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .solution-step h4 {
+        color: #7986CB;
     }
     
     body.dark .math-problem {
         background-color: #333;
+        border-left: 5px solid #1565C0;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     
+    body.dark .math-problem h4 {
+        color: #64B5F6;
+    }
+    
     body.dark .final-answer {
-        background-color: #2e4b38;
+        background: linear-gradient(135deg, #1e3a47, #1b5e20);
+        border-left: 5px solid #388E3C;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .final-answer h4 {
+        color: #81C784;
     }
     
     body.dark .chat-message-user {

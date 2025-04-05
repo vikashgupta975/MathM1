@@ -104,17 +104,33 @@ def format_response(response):
                           html_response, flags=re.DOTALL)
     
     # Find final answers with various patterns
-    answer_patterns = [
-        r'<p><strong>(Final Answer|Result|Answer|Conclusion):?</strong>(.*?)</p>',
-        r'<p>(Final Answer|Result|Answer|Conclusion):?(.*?)</p>',
-        r'<p>.*?final answer is:?(.*?)</p>',
-        r'<p>.*?answer is:?(.*?)</p>'
-    ]
+    # Pattern 1: Strong tag with answer label
+    html_response = re.sub(
+        r'<p><strong>(Final Answer|Result|Answer|Conclusion):?</strong>(.*?)</p>', 
+        r'<div class="final-answer"><h4>\1:</h4>\2</div>', 
+        html_response, flags=re.DOTALL
+    )
     
-    for pattern in answer_patterns:
-        html_response = re.sub(pattern, 
-                              r'<div class="final-answer"><h4>Final Answer:</h4>\2</div>', 
-                              html_response, flags=re.DOTALL)
+    # Pattern 2: Answer label without strong tag
+    html_response = re.sub(
+        r'<p>(Final Answer|Result|Answer|Conclusion):?(.*?)</p>', 
+        r'<div class="final-answer"><h4>\1:</h4>\2</div>', 
+        html_response, flags=re.DOTALL
+    )
+    
+    # Pattern 3: Sentence containing "final answer is"
+    html_response = re.sub(
+        r'<p>(.*?)final answer is:?(.*?)</p>', 
+        r'<div class="final-answer"><h4>Final Answer:</h4>\2</div>', 
+        html_response, flags=re.DOTALL | re.IGNORECASE
+    )
+    
+    # Pattern 4: Sentence containing "answer is"
+    html_response = re.sub(
+        r'<p>(.*?)answer is:?(.*?)</p>', 
+        r'<div class="final-answer"><h4>Answer:</h4>\2</div>', 
+        html_response, flags=re.DOTALL | re.IGNORECASE
+    )
     
     # Highlight specific mathematical terms and concepts
     math_terms = [
