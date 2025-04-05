@@ -69,6 +69,27 @@ def format_response(response):
     # Find inline math expressions wrapped in $...$ and highlight them
     html_response = re.sub(r'\$([^$]+)\$', r'<span style="color:#1E88E5; font-weight:bold;">\1</span>', html_response)
     
+    # Detect the original problem and wrap in styled div
+    problem_pattern = r'<p>([^<]+)</p>'
+    match = re.search(problem_pattern, html_response)
+    if match:
+        problem_text = match.group(1)
+        # Only replace the first occurrence which should be the problem statement
+        html_response = html_response.replace(f"<p>{problem_text}</p>", 
+                                            f'<div class="math-problem">{problem_text}</div>', 1)
+    
+    # Wrap steps in styled divs
+    step_pattern = r'<p><strong style="color:#1E88E5;">(Step \d+:?)</strong>([^<]+|[^<]*<[^>]+>[^<]*</[^>]+>[^<]*)</p>'
+    html_response = re.sub(step_pattern, 
+                          r'<div class="solution-step"><strong style="color:#1E88E5;">\1</strong>\2</div>', 
+                          html_response)
+    
+    # Wrap final answer in styled div
+    answer_pattern = r'<p><strong style="color:#1E88E5;">(Final Answer:?|Result:?)</strong>([^<]+|[^<]*<[^>]+>[^<]*</[^>]+>[^<]*)</p>'
+    html_response = re.sub(answer_pattern, 
+                          r'<div class="final-answer"><strong>\1</strong>\2</div>', 
+                          html_response)
+    
     # Highlight important parts like "Step 1", "Step 2", "Final Answer", etc.
     html_response = re.sub(r'(Step \d+:?|Final Answer:?|Solution:?|Result:?)', 
                           r'<strong style="color:#1E88E5;">\1</strong>', 

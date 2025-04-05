@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import streamlit.components.v1 as components
 from utils import send_to_mistral, format_response
 
 # Page configuration
@@ -9,6 +10,139 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Custom CSS for styling
+st.markdown("""
+<style>
+    /* General styling */
+    .math-problem {
+        background-color: #f8f9fa;
+        border-left: 5px solid #1E88E5;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .solution-step {
+        margin: 15px 0;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f0f2f6;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .final-answer {
+        background-color: #e8f4f8;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        border-left: 5px solid #4CAF50;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .chat-message-user {
+        padding: 10px 15px;
+        border-radius: 18px 18px 0 18px;
+        margin: 10px 0;
+        display: inline-block;
+        background-color: #f0f2f6;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .chat-message-assistant {
+        padding: 10px 15px;
+        border-radius: 18px 18px 18px 0;
+        margin: 10px 0;
+        display: inline-block;
+        background-color: #e8f4f8;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* App transition effects */
+    .stApp {
+        transition: all 0.3s ease;
+    }
+    
+    /* Button styling */
+    .stButton button {
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+    
+    .stButton button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* Input field styling */
+    .stTextInput > div > div > input {
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+    
+    /* Dark mode styles */
+    body.dark {
+        color: #f0f2f6;
+        background-color: #262730;
+    }
+    
+    body.dark .stTextInput > div > div > input {
+        background-color: #3b3b40;
+        color: white;
+        border-color: #555;
+    }
+    
+    body.dark .solution-step {
+        background-color: #3b3b40;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .math-problem {
+        background-color: #3b3b40;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .final-answer {
+        background-color: #2e4b38;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .chat-message-user {
+        background-color: #3b3b40;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .chat-message-assistant {
+        background-color: #1e3a47;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .stButton button {
+        background-color: #4a4a4f;
+        color: white;
+    }
+    
+    /* Creator info styling */
+    .creator-info {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        text-align: right;
+        opacity: 0.7;
+        font-size: 12px;
+        transition: opacity 0.3s ease;
+    }
+    
+    .creator-info:hover {
+        opacity: 1;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # API key handling
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "yKoYjnsYQlZfIVujHW1Oh5racq98HGGJ")
@@ -22,6 +156,9 @@ if "logged_in" not in st.session_state:
     
 if "login_attempts" not in st.session_state:
     st.session_state.login_attempts = 0
+    
+if "theme" not in st.session_state:
+    st.session_state.theme = "light"  # Default theme
 
 # Set the correct credentials
 CORRECT_NAME = "Vikash Gupta"
@@ -31,9 +168,15 @@ CORRECT_REG_NO = "12321380"
 if not st.session_state.logged_in:
     st.title("🔐 Login to Math Problem Solver")
     
-    # More professional login page
-    st.markdown("""
-    <div style="background-color: #f0f2f6; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+    # More professional login page with dark mode compatibility
+    if st.session_state.theme == "dark":
+        bg_color = "#3b3b40"
+    else:
+        bg_color = "#f0f2f6"
+        
+    st.markdown(f"""
+    <div style="background-color: {bg_color}; padding: 20px; border-radius: 10px; margin-bottom: 20px; 
+               box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.3s ease;">
         <h3 style="color: #1E88E5;">Welcome to Math Problem Solver</h3>
         <p>Please log in with your credentials to access the application</p>
     </div>
@@ -60,7 +203,7 @@ if not st.session_state.logged_in:
         
     # Creator information in small text at the bottom
     st.markdown("""
-    <div style="position: fixed; bottom: 10px; right: 10px; text-align: right; opacity: 0.7; font-size: 12px;">
+    <div class="creator-info">
         <p style="margin: 0; padding: 0;">Creator: Vikash Gupta</p>
         <p style="margin: 0; padding: 0;">Reg. No: 12321380</p>
     </div>
@@ -68,8 +211,16 @@ if not st.session_state.logged_in:
 else:
     # Main App header
     st.title("🧮 Math Problem Solver")
+    
+    # Welcome message with dark mode compatibility
+    if st.session_state.theme == "dark":
+        bg_color = "#3b3b40"
+    else:
+        bg_color = "#f0f2f6"
+        
     st.markdown(f"""
-    <div style="background-color: #f0f2f6; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+    <div style="background-color: {bg_color}; padding: 15px; border-radius: 8px; margin-bottom: 20px; 
+               box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.3s ease;">
         <p><strong>Welcome back!</strong> You are now logged in and can use the Math Problem Solver.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -81,10 +232,19 @@ else:
     
     # Creator information in small text at the bottom
     st.markdown("""
-    <div style="position: fixed; bottom: 10px; right: 10px; text-align: right; opacity: 0.7; font-size: 12px;">
+    <div class="creator-info">
         <p style="margin: 0; padding: 0;">Creator: Vikash Gupta</p>
         <p style="margin: 0; padding: 0;">Reg. No: 12321380</p>
     </div>
+    """, unsafe_allow_html=True)
+
+# Apply dark mode if enabled
+if st.session_state.theme == "dark":
+    st.markdown("""
+    <script>
+        document.body.classList.add('dark');
+        document.getElementsByTagName('html')[0].style.backgroundColor = '#262730';
+    </script>
     """, unsafe_allow_html=True)
 
 # Sidebar with information
@@ -100,6 +260,22 @@ with st.sidebar:
         if st.button("Logout"):
             st.session_state.logged_in = False
             st.rerun()
+        
+        # Theme toggle
+        st.write("### Appearance")
+        theme_col1, theme_col2 = st.columns(2)
+        
+        with theme_col1:
+            if st.button("🌞 Light Mode", disabled=st.session_state.theme == "light"):
+                st.session_state.theme = "light"
+                st.rerun()
+        
+        with theme_col2:
+            if st.button("🌙 Dark Mode", disabled=st.session_state.theme == "dark"):
+                st.session_state.theme = "dark"
+                st.rerun()
+        
+        # Theme is applied globally
     
     st.header("About")
     st.markdown("""
