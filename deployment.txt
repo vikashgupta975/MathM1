@@ -1,0 +1,6 @@
+# Deployment Requirements for Streamlit Cloud
+# Copy these dependencies to your requirements.txt when deploying
+
+streamlit>=1.24.0
+requests>=2.28.0
+markdown>=3.4.0

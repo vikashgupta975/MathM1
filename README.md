@@ -44,3 +44,79 @@ A Streamlit-based application that uses Mistral AI to solve various types of mat
 ## How It Works
 
 The application sends your math problem to Mistral AI with specific prompting to focus on step-by-step mathematical solutions. The response is then formatted for readability in the Streamlit interface.
+
+## Deploying to Streamlit Cloud
+
+1. **Create a GitHub repository** with these files:
+   - app.py
+   - utils.py
+   - .streamlit/config.toml (modified - see below)
+
+2. **Modify the `.streamlit/config.toml` file** for Streamlit Cloud:
+   ```toml
+   [server]
+   headless = true
+   
+   [theme]
+   # Your theme settings...
+   ```
+   *Note: Remove the port and address settings as Streamlit Cloud manages these automatically*
+
+3. **Create a requirements.txt file** with the following dependencies:
+   ```
+   streamlit>=1.24.0
+   requests>=2.28.0
+   markdown>=3.4.0
+   ```
+
+4. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
+
+5. **Create a new app** by connecting to your GitHub repo
+
+6. **Set up your Mistral API key** in Streamlit Cloud:
+   - Click on "Advanced settings" 
+   - Go to "Secrets"
+   - Add your Mistral API key in TOML format:
+   ```
+   MISTRAL_API_KEY = "your-api-key-here"
+   ```
+   
+7. **Deploy!** Your app will be available at a unique URL
+
+## Deploying to Streamlit Cloud
+
+1. **Create a GitHub repository** with these files:
+   - app.py
+   - utils.py
+   - .streamlit/config.toml (modified - see below)
+
+2. **Modify the `.streamlit/config.toml` file** for Streamlit Cloud:
+   ```toml
+   [server]
+   headless = true
+   
+   [theme]
+   # Your theme settings...
+   ```
+   *Note: Remove the port and address settings as Streamlit Cloud manages these automatically*
+
+3. **Create a requirements.txt file** with the following dependencies:
+   ```
+   streamlit>=1.24.0
+   requests>=2.28.0
+   markdown>=3.4.0
+   ```
+
+4. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
+
+5. **Create a new app** by connecting to your GitHub repo
+
+6. **Set up your Mistral API key** in Streamlit Cloud:
+   - Click on "Advanced settings" 
+   - Go to "Secrets"
+   - Add your Mistral API key in TOML format:
+   ```
+   MISTRAL_API_KEY = "your-api-key-here"
+   ```
+   
+7. **Deploy!** Your app will be available at a unique URL

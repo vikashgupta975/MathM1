@@ -589,13 +589,23 @@ with st.sidebar:
         1. **Create a GitHub repository** with these files:
            - app.py
            - utils.py
-           - .streamlit/config.toml
+           - requirements.txt (with streamlit, requests, markdown)
         
-        2. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
+        2. **Important:** For Streamlit Cloud, modify the `.streamlit/config.toml` file:
+           ```toml
+           [server]
+           headless = true
+           
+           [theme]
+           # Your theme settings...
+           ```
+           *Note: Remove the port and address settings as Streamlit Cloud manages these automatically*
         
-        3. **Create a new app** by connecting to your GitHub repo
+        3. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
         
-        4. **Set up your Mistral API key** in Streamlit Cloud:
+        4. **Create a new app** by connecting to your GitHub repo
+        
+        5. **Set up your Mistral API key** in Streamlit Cloud:
            - Click on "Advanced settings" 
            - Go to "Secrets"
            - Add your Mistral API key in TOML format:
@@ -603,7 +613,7 @@ with st.sidebar:
            MISTRAL_API_KEY = "your-api-key-here"
            ```
            
-        5. **Deploy!** Your app will be available at a unique URL
+        6. **Deploy!** Your app will be available at a unique URL
         """)
     
     if st.session_state.logged_in and st.button("Clear Chat History"):
