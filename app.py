@@ -57,6 +57,14 @@ if not st.session_state.logged_in:
     # Add a hint about credentials in a less obvious way
     with st.expander("Need help logging in?"):
         st.info("Contact your administrator or instructor if you forgot your login credentials.")
+        
+    # Creator information in small text at the bottom
+    st.markdown("""
+    <div style="position: fixed; bottom: 10px; right: 10px; text-align: right; opacity: 0.7; font-size: 12px;">
+        <p style="margin: 0; padding: 0;">Creator: Vikash Gupta</p>
+        <p style="margin: 0; padding: 0;">Reg. No: 12321380</p>
+    </div>
+    """, unsafe_allow_html=True)
 else:
     # Main App header
     st.title("🧮 Math Problem Solver")
@@ -70,6 +78,14 @@ else:
     This chatbot can help you solve various types of mathematical problems. 
     Just describe your math problem clearly, and I'll provide a step-by-step solution.
     """)
+    
+    # Creator information in small text at the bottom
+    st.markdown("""
+    <div style="position: fixed; bottom: 10px; right: 10px; text-align: right; opacity: 0.7; font-size: 12px;">
+        <p style="margin: 0; padding: 0;">Creator: Vikash Gupta</p>
+        <p style="margin: 0; padding: 0;">Reg. No: 12321380</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Sidebar with information
 with st.sidebar:
