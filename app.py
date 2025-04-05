@@ -31,34 +31,38 @@ CORRECT_REG_NO = "12321380"
 if not st.session_state.logged_in:
     st.title("🔐 Login to Math Problem Solver")
     
-    # Show student info with styling
+    # More professional login page
     st.markdown("""
     <div style="background-color: #f0f2f6; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="color: #1E88E5;">Student Information</h3>
-        <p><strong>Name:</strong> Vikash Gupta</p>
-        <p><strong>Registration Number:</strong> 12321380</p>
+        <h3 style="color: #1E88E5;">Welcome to Math Problem Solver</h3>
+        <p>Please log in with your credentials to access the application</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Login form
+    # Login form with username and password instead
     with st.form("login_form"):
-        name = st.text_input("Name")
-        reg_no = st.text_input("Registration Number")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
         submit_button = st.form_submit_button("Login")
         
         if submit_button:
-            if name == CORRECT_NAME and reg_no == CORRECT_REG_NO:
+            # Still use the same values, but as username/password instead
+            if username == CORRECT_NAME and password == CORRECT_REG_NO:
                 st.session_state.logged_in = True
                 st.rerun()
             else:
                 st.session_state.login_attempts += 1
                 st.error(f"Invalid credentials. Please try again. ({st.session_state.login_attempts} attempts)")
+                
+    # Add a hint about credentials in a less obvious way
+    with st.expander("Need help logging in?"):
+        st.info("Contact your administrator or instructor if you forgot your login credentials.")
 else:
     # Main App header
     st.title("🧮 Math Problem Solver")
     st.markdown(f"""
     <div style="background-color: #f0f2f6; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-        <p><strong>Logged in as:</strong> {CORRECT_NAME} | <strong>Reg No:</strong> {CORRECT_REG_NO}</p>
+        <p><strong>Welcome back!</strong> You are now logged in and can use the Math Problem Solver.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -70,10 +74,10 @@ else:
 # Sidebar with information
 with st.sidebar:
     if st.session_state.logged_in:
-        st.header("User Info")
+        st.header("Account")
         st.markdown(f"""
-        **Name:** {CORRECT_NAME}  
-        **Reg No:** {CORRECT_REG_NO}
+        **Status:** Logged in
+        **User:** {CORRECT_NAME}
         """)
         
         # Logout button at the top of sidebar
