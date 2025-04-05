@@ -305,8 +305,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# API key handling
-MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "yKoYjnsYQlZfIVujHW1Oh5racq98HGGJ")
+# API key handling for Streamlit Cloud and local development
+# First try st.secrets (for Streamlit Cloud)
+try:
+    MISTRAL_API_KEY = st.secrets["MISTRAL_API_KEY"]
+    print("Using Mistral API Key from Streamlit secrets")
+except Exception as e:
+    # Then try environment variable
+    MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+    if MISTRAL_API_KEY:
+        print("Using Mistral API Key from environment variables")
+    else:
+        # Finally use the default key for local development
+        MISTRAL_API_KEY = "yKoYjnsYQlZfIVujHW1Oh5racq98HGGJ"
+        print("Using default Mistral API Key (for local development only)")
 
 # Initialize session state
 if "messages" not in st.session_state:
@@ -567,6 +579,32 @@ with st.sidebar:
     - What is the probability of getting at least one head in 3 coin flips?
     - Solve the system of equations: x + y = 10, 2x - y = 5
     """)
+    
+    # Deployment information
+    st.header("Deployment Info")
+    with st.expander("How to deploy on Streamlit Cloud"):
+        st.markdown("""
+        ### Deploying this app on Streamlit Cloud
+        
+        1. **Create a GitHub repository** with these files:
+           - app.py
+           - utils.py
+           - .streamlit/config.toml
+        
+        2. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
+        
+        3. **Create a new app** by connecting to your GitHub repo
+        
+        4. **Set up your Mistral API key** in Streamlit Cloud:
+           - Click on "Advanced settings" 
+           - Go to "Secrets"
+           - Add your Mistral API key in TOML format:
+           ```
+           MISTRAL_API_KEY = "your-api-key-here"
+           ```
+           
+        5. **Deploy!** Your app will be available at a unique URL
+        """)
     
     if st.session_state.logged_in and st.button("Clear Chat History"):
         st.session_state.messages = []
