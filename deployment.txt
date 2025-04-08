@@ -1,6 +1,49 @@
-# Deployment Requirements for Streamlit Cloud
-# Copy these dependencies to your requirements.txt when deploying
+# Deployment Instructions for Streamlit Cloud
 
-streamlit>=1.24.0
-requests>=2.28.0
-markdown>=3.4.0
+## Health Check Error Solution
+If you're seeing this error:
+```
+The service has encountered an error while checking the health of the Streamlit app: 
+Get "http://localhost:8501/healthz": dial tcp 127.0.0.1:8501: connect: connection refused
+```
+
+This is happening because the deployment service is looking for the app on port 8501 (Streamlit's default port), but our app is configured to use port 5000.
+
+## Solution Options:
+
+### Option 1: Use Default Port for Deployment
+For Streamlit Cloud, modify your app to use the default port (8501) when deployed. Add this to your `app.py`:
+
+```python
+# At the beginning of your app.py file
+import os
+import streamlit as st
+
+# The rest of your code follows...
+```
+
+Then use the default Streamlit startup command in your deployment:
+```
+streamlit run app.py
+```
+
+### Option 2: Use a Procfile
+Some deployment platforms support Procfiles to specify the command:
+```
+web: streamlit run app.py --server.port=$PORT
+```
+
+### Option 3: Environment-Aware Configuration
+In your `.streamlit/config.toml`, use:
+```toml
+[server]
+headless = true
+# Do not specify port or address for cloud deployment
+```
+
+And deploy using the standard Streamlit command:
+```
+streamlit run app.py
+```
+
+The key is to allow the deployment platform to decide which port to use rather than hardcoding it.

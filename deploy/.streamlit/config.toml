@@ -1,10 +1,11 @@
 [server]
 headless = true
+# Note: Port and address are NOT specified here for cloud deployment
+# This allows Streamlit Cloud to handle port assignment automatically
 
 [theme]
-# Base theme is light
-primaryColor = "#1E88E5"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F2F6"
-textColor = "#262730"
+primaryColor = "#4a90e2"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f5f8fa"
+textColor = "#212529"
 font = "sans serif"

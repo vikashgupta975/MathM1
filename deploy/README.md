@@ -1,37 +1,56 @@
-# Streamlit Cloud Deployment Files
+# Streamlit Cloud Deployment Guide
 
-This directory contains the configuration files optimized for deploying to Streamlit Cloud.
+This guide provides step-by-step instructions for deploying this Math Problem Solver application to Streamlit Cloud.
 
-## Deployment Instructions
+## Prerequisites
 
-1. **Create a GitHub repository** with the following files:
-   - Copy the main files from your project:
-     - `app.py`
-     - `utils.py`
-   - Use the `.streamlit/config.toml` from this directory (has port/address settings removed)
-   - Create a `requirements.txt` file with:
-     ```
-     streamlit>=1.24.0
-     requests>=2.28.0
-     markdown>=3.4.0
-     ```
+1. A Streamlit Cloud account (sign up at [https://share.streamlit.io/](https://share.streamlit.io/))
+2. A GitHub repository with your application
+3. A Mistral AI API key (sign up at [https://mistral.ai/](https://mistral.ai/))
 
-2. **Go to [Streamlit Cloud](https://streamlit.io/cloud)** and create an account
+## Deployment Steps
 
-3. **Create a new app** by connecting to your GitHub repo
+### 1. Push your code to GitHub
 
-4. **Set up your Mistral API key** in Streamlit Cloud:
-   - Click on "Advanced settings" 
-   - Go to "Secrets"
-   - Add your Mistral API key in TOML format:
-   ```
-   MISTRAL_API_KEY = "your-api-key-here"
-   ```
-   
-5. **Deploy!** Your app will be available at a unique URL
+Make sure your repository includes these files:
+- `app.py` - Your main application file
+- `utils.py` - Utility functions
+- `.streamlit/config.toml` from this deploy folder
+- `requirements.txt` from this deploy folder
 
-## Important Notes
+### 2. Configure Streamlit Cloud Secrets
 
-- The configuration in this directory has the port and address settings removed, as Streamlit Cloud manages these automatically
-- Make sure to add your Mistral API key to the Secrets section in Streamlit Cloud
-- Do not include the default API key in your deployed code for security reasons
+1. In your Streamlit Cloud dashboard, select your app
+2. Click on "Advanced Settings" > "Secrets"
+3. Add your Mistral AI API key in TOML format:
+
+```toml
+MISTRAL_API_KEY = "your-mistral-api-key-here"
+```
+
+### 3. Deploy on Streamlit Cloud
+
+1. Connect your GitHub repository
+2. Select the repository and branch
+3. Set the main file path to: `app.py`
+4. Click "Deploy"
+
+### 4. Fixing "Health Check" Errors
+
+If you encounter health check errors during deployment:
+
+1. Use the `.streamlit/config.toml` file from this deploy folder (without port specification)
+2. Make sure you're not hardcoding the port in your application
+3. Let Streamlit Cloud handle the port assignment
+
+### Updating Your Deployment
+
+When making changes to your app:
+1. Push changes to your GitHub repository
+2. Streamlit Cloud will automatically redeploy your app
+
+### Project Information
+
+- **Creator**: Vikash Gupta (Reg. No. 12321380)
+- **API**: Mistral AI
+- **Framework**: Streamlit
