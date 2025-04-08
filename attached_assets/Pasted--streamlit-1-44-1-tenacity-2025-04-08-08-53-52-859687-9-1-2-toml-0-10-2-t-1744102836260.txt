@@ -1,0 +1,139 @@
+
+ + streamlit==1.44.1
+
+ + tenacity==[2025-04-08 08:53:52.859687] 9.1.2
+
+ + toml==0.10.2
+
+ + tornado==6.4.2
+
+ + typing-extensions==4.13.1
+
+ + tzdata==2025.2
+
+ + urllib3==2.3.0
+
+ + watchdog==6.0.0
+
+[08:53:53] 🐍 Python dependencies were installed from /mount/src/mathmaster/uv.lock using uv-sync.
+
+[08:53:53] 📦 WARN: More than one requirements file detected in the repository. Available options: uv-sync /mount/src/mathmaster/uv.lock, poetry /mount/src/mathmaster/pyproject.toml. Used: uv-sync with /mount/src/mathmaster/uv.lock
+
+Check if streamlit is installed
+
+Streamlit is already installed
+
+[08:53:55] 📦 Processed dependencies!
+
+
+
+
+[08:53:58] ❗️ The service has encountered an error while checking the health of the Streamlit app: Get "http://localhost:8501/healthz": dial tcp 127.0.0.1:8501: connect: connection refused
+
+[08:53:49] 🚀 Starting up repository: 'mathmaster', branch: 'main', main module: 'app.py'
+
+[08:53:49] 🐙 Cloning repository...
+
+[08:53:50] 🐙 Cloning into '/mount/src/mathmaster'...
+
+[08:53:50] 🐙 Cloned repository!
+
+[08:53:50] 🐙 Pulling code changes from Github...
+
+[08:53:50] 📦 Processing dependencies...
+
+Prepared 38 packages in 1.36s
+
+Installed 38 packages in 229ms
+
+ + altair==5.5.0
+
+ + attrs==25.3.0
+
+ + blinker==1.9.0
+
+ + cachetools==5.5.2
+
+ + certifi==2025.1.31
+
+ + charset-normalizer==3.4.1
+
+ + click==8.1.8
+
+ + gitdb==4.0.12
+
+ + gitpython==3.1.44
+
+ + idna==3.10
+
+ + jinja2==3.1.6
+
+ + jsonschema==4.23.0
+
+ + jsonschema-specifications==2024.10.1
+
+ +[2025-04-08 08:53:52.859304]  markdown==3.7
+
+ + markupsafe==3.0.2
+
+ + narwhals==1.33.0
+
+ + numpy==2.2.4
+
+ + packaging==24.2
+
+ + pandas==2.2.3
+
+ + pillow==11.1.0
+
+ + protobuf==5.29.4
+
+ + pyarrow==19.0.1
+
+ + pydeck==0.9.1
+
+ + python-dateutil==[2025-04-08 08:53:52.859507] 2.9.0.post0
+
+ + pytz==2025.2
+
+ + referencing==0.36.2
+
+ + requests==2.32.3
+
+ + rpds-py==0.24.0
+
+ + six==1.17.0
+
+ + smmap==5.0.2
+
+ + streamlit==1.44.1
+
+ + tenacity==[2025-04-08 08:53:52.859687] 9.1.2
+
+ + toml==0.10.2
+
+ + tornado==6.4.2
+
+ + typing-extensions==4.13.1
+
+ + tzdata==2025.2
+
+ + urllib3==2.3.0
+
+ + watchdog==6.0.0
+
+[08:53:53] 🐍 Python dependencies were installed from /mount/src/mathmaster/uv.lock using uv-sync.
+
+[08:53:53] 📦 WARN: More than one requirements file detected in the repository. Available options: uv-sync /mount/src/mathmaster/uv.lock, poetry /mount/src/mathmaster/pyproject.toml. Used: uv-sync with /mount/src/mathmaster/uv.lock
+
+Check if streamlit is installed
+
+Streamlit is already installed
+
+[08:53:55] 📦 Processed dependencies!
+
+
+
+
+[08:53:58] ❗️ The service has encountered an error while checking the health of the Streamlit app: Get "http://localhost:8501/healthz": dial tcp 127.0.0.1:8501: connect: connection refused
+
