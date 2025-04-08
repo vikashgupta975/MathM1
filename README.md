@@ -120,3 +120,13 @@ The application sends your math problem to Mistral AI with specific prompting to
    ```
    
 7. **Deploy!** Your app will be available at a unique URL
+
+## Streamlit Cloud Deployment
+
+For easy deployment to Streamlit Cloud, check the `deploy` directory which contains:
+
+- Deployment-optimized `.streamlit/config.toml` without port/address settings
+- Ready-to-use `requirements.txt` file
+- Detailed deployment instructions
+
+Follow the instructions in `deploy/README.md` for a step-by-step deployment guide.
